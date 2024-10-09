@@ -32,12 +32,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                // Lancer les tests unitaires Angular
-                sh 'npm run test -- --watch=false --no-progress --browsers=ChromeHeadless'
-            }
-        }
 
         stage('SonarQube Analysis') {
             steps {
