@@ -23,8 +23,8 @@ pipeline {
                 // Utiliser Node.js et installer les dépendances Angular
                 script {
                     // Sélectionner la version de Node.js
-                    def nodeHome = tool name: "NodeJS-${18.x}", type: 'NodeJSInstallation'
-                    env.PATH = "${nodeHome}/bin:${env.PATH}"
+                    //def nodeHome = tool name: "NodeJS-${18.x}", type: 'NodeJSInstallation'
+                    //env.PATH = "${nodeHome}/bin:${env.PATH}"
 
                     // Installer les dépendances du projet Angular
                     sh 'npm install'
