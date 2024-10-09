@@ -1,0 +1,76 @@
+<ngx-loading [show]="loading"></ngx-loading>
+<main class="flex flex-row justify-center items-center min-h-screen w-screen p-3 py-16 lg:h-screen lg:w-screen">
+  <div id="left_part" class="flex flex-col justify-center items-center w-full lg:w-1/2">
+    <a href="#">
+      <img src="./../../../assets/logos/LOGO_GANEYI_blanc.png" alt="Logo Ganeyi blanc" width="100"/>
+    </a>
+    <h1 class="text-2xl w-fit h-fit my-10 text-4xl text-white font-semibold">
+      CONNEXION
+    </h1>
+    <div class="flex flex-col justify-center items-center w-full h-fit">
+      <form class="w-full sm:w-2/3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="error != ''" class="bg-red-200 text-red-700 mt-3 p-5 justify-center items-center rounded mb-0">
+          {{ error }}
+        </div>
+        <input
+          class="w-full h-12 my-3 rounded-md bg-transparent border-white/50 text-white hover:border-white focus:border-white transition"
+          type="text" formControlName="login" placeholder="Email"/>
+        <div *ngIf="submitted && f['login'].errors" class="invalid-feedback">
+          <div *ngIf="f['login'].errors['required']">
+            Nom d'utilisateur obligatoire
+          </div>
+        </div>
+        <div class="container">
+          <div class="relative">
+            <div class="absolute inset-y-0 right-0 flex items-center px-2">
+              <input (change)="showPswd = !showPswd" class="hidden js-password-toggle" id="toggle" type="checkbox"/>
+              <label
+                class="bg-teal-600 hover:bg-primary hover:text-white rounded px-2 py-1 text-xl text-gray-200 font-mono cursor-pointer js-password-label"
+                for="toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </label>
+            </div>
+            <input
+              class="w-full h-12 my-3 rounded-md bg-transparent border-white/50 text-white transition"
+              [type]="!showPswd ? 'password' : 'text'" formControlName="password" placeholder="Mot de passe"/>
+          </div>
+        </div>
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">
+            Mot de passe obligatoire
+          </div>
+        </div>
+        <div class="w-full flex justify-end">
+          <a [routerLink]="['/auth/forgot-password']" routerLinkActive="router-link-active"
+             class="text-slate-300 transition hover:text-white">Vous avez oublié votre mot de passe ?</a>
+        </div>
+        <!--
+        <button [disabled]="loading"
+          class="flex flex-row justify-center items-center w-full h-12 my-3 rounded-md bg-transparent text-white border-solid border border-white">
+          <img src="./../../../assets/icons/google_icon.svg" width="30" alt="Connexion avec Google" />
+          <span class="p-5">Se connecter avec Google</span>
+        </button>
+        -->
+        <button [disabled]="loading" type="submit"
+                class="w-full h-12 px-6 py-2.5 bg-slate-50 text-[#339682] font-medium text-lg leading-tight font-bold mt-7 shadow-md hover:bg-slate-200 hover:shadow-lg focus:bg-slate-200 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-200 active:shadow-lg transition duration-150 ease-in-out">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Se connecter
+        </button>
+        <div class="w-full flex justify-start my-4">
+          <span class="text-slate-300 mr-3">Je n'ai pas de compte ?</span>
+          <a class="text-dark underline cursor-pointer" [routerLink]="['/signup', {}]">Je m'inscris</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="right_part" class="relative flex flex-col justify-center items-center w-1/2 hidden lg:flex h-4/5">
+    <img id="spectre" class="absolute inset-0 w-full h-full" src="./../../../assets/logos/spectre_bg.svg"
+         alt="Spectre"/>
+    <img class="w-1/5" src="./../../../assets/logos/logo_ganeyi.png" alt="Logo Ganeyi"/>
+  </div>
+</main>

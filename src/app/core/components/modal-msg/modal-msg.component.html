@@ -1,0 +1,13 @@
+<div *ngIf="showMsg === true" id="modal-msg">
+    <div class="modal-info-inline p-7">
+        <h2 class="text-2xl my-4"></h2>
+        <p class="text-xl">
+            {{this?.message}}
+        </p>
+
+        <button (click)="switchModal()"
+            class="h-12 px-6 py-2.5 bg-[#339886] text-white font-medium text-lg leading-tight font-bold mt-7 shadow-md hover:bg-[#1d4e4b] hover:shadow-lg focus:bg-[#1d4e4b] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#1d4e4b]   active:shadow-lg transition duration-150 ease-in-out">
+            Fermer
+        </button>
+    </div>
+</div>

@@ -1,0 +1,208 @@
+<main class="flex flex-row justify-center items-center min-h-screen w-screen p-3 lg:min-h-screen lg:w-screen">
+  <ngx-loading [show]="loading"></ngx-loading>
+  <div id="left_part" class="flex flex-col justify-center items-center w-full lg:w-1/2">
+    <a href="#">
+      <img src="./../../../assets/logos/LOGO_GANEYI_blanc.png" alt="Logo Ganeyi blanc" width="100" />
+    </a>
+    <h1 class="text-2xl w-fit h-fit my-10 text-4xl text-white font-semibold">
+      INSCRIPTION
+    </h1>
+    <div class="flex flex-col justify-center items-center w-full h-fit">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-full sm:w-3/4">
+        <div class="flex gap-4">
+          <input class="w-full h-12 my-3 rounded-md bg-transparent border-white/50 text-white transition" type="email"
+            formControlName="email" id="email" placeholder="Email" (keyup)="this.try > 0 ? verifyInputs() : ''" />
+        </div>
+        <div #container class="container">
+          <div class="relative">
+            <div class="absolute inset-y-0 right-0 flex items-center px-2">
+              <input (change)="showPswd = !showPswd" class="hidden js-password-toggle" id="toggle" type="checkbox" />
+              <label
+                class="hover:bg-primary hover:text-white rounded px-2 py-1 text-xl text-gray-200 font-mono cursor-pointer js-password-label"
+                for="toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </label>
+              <div (click)="this.tooltip_status = !this.tooltip_status"
+                class="hover:bg-primary hover:text-white rounded px-2 py-1 text-xl text-gray-200 font-mono cursor-pointer js-password-label">
+                <!--Code Block for white tooltip starts-->
+                <div class="relative mt-20 md:mt-0">
+                  <div class="mr-2 cursor-pointer">
+                    <svg aria-haspopup="true" xmlns="http://www.w3.org/2000/svg"
+                      class="icon icon-tabler icon-tabler-info-circle" width="25" height="25" viewBox="0 0 24 24"
+                      stroke-width="1.5" stroke="#A0AEC0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" />
+                      <circle cx="12" cy="12" r="9" />
+                      <line x1="12" y1="8" x2="12.01" y2="8" />
+                      <polyline points="11 12 12 12 12 16 13 16" />
+                    </svg>
+                  </div>
+                  <div *ngIf="tooltip_status" role="tooltip"
+                    class="z-20 -mt-20 w-80 absolute transition duration-150 ease-in-out left-0 ml-8 shadow-lg bg-white p-4 rounded">
+                    <svg class="absolute left-0 -ml-2 bottom-0 top-0 h-full" width="9px" height="16px"
+                      viewBox="0 0 9 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Tooltips-" transform="translate(-874.000000, -1029.000000)" fill="#FFFFFF">
+                          <g id="Group-3-Copy-16" transform="translate(850.000000, 975.000000)">
+                            <g id="Group-2" transform="translate(24.000000, 0.000000)">
+                              <polygon id="Triangle"
+                                transform="translate(4.500000, 62.000000) rotate(-90.000000) translate(-4.500000, -62.000000) "
+                                points="4.5 57.5 12.5 66.5 -3.5 66.5"></polygon>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <p class="flex gap-2 items-center text-sm text-gray-800 pb-1">
+                      <svg *ngIf="passwordAnalysis.length" class="text-primary text-sm w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="{1.5}"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <svg *ngIf="!passwordAnalysis.length" class="text-red-500 text-sm w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="{1.5}"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      8 caractères minimum
+                    </p>
+                    <p class="flex gap-2 items-center text-sm text-gray-800 pb-1">
+                      <svg *ngIf="passwordAnalysis.upperLetters" class="text-primary text-sm w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="{1.5}"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <svg *ngIf="!passwordAnalysis.upperLetters" class="text-red-500 text-sm w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="{1.5}"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Lettres majuscules
+                    </p>
+                    <p class="flex gap-2 items-center text-sm text-gray-800 pb-1">
+                      <svg *ngIf="passwordAnalysis.lowerLetters" class="text-primary text-sm w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="{1.5}"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <svg *ngIf="!passwordAnalysis.lowerLetters" class="text-red-500 text-sm w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="{1.5}"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Lettres miniscules
+                    </p>
+                    <p class="flex gap-2 items-center text-sm text-gray-800 pb-1">
+                      <svg *ngIf="passwordAnalysis.numbers" class="text-primary text-sm w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="{1.5}"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <svg *ngIf="!passwordAnalysis.numbers" class="text-red-500 text-sm w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="{1.5}"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Chiffres
+                    </p>
+                  </div>
+                </div>
+                <!--Code Block for white tooltip ends-->
+              </div>
+            </div>
+            <input [type]="!showPswd ? 'password' : 'text'"
+              class="w-full h-12 my-3 rounded-md bg-transparent border-white/50 text-white transition" type="password"
+              formControlName="password" id="password1" placeholder="Mot de passe"
+              (keyup)="this.tooltip_status = true;pswKeyUp();this.try > 0 ? verifyInputs() : ''" />
+          </div>
+          <input [type]="!showPswd ? 'password' : 'text'"
+            class="w-full mb-8 h-12 my-3 rounded-md bg-transparent border-white/50 text-white transition"
+            type="password" id="password2" placeholder="Confirmation mot de passe" formControlName="password2"
+            (keyup)="this.try > 0 ? verifyInputs() : ''" />
+          <div [hidden]="!showStrenght" class="strenghtMeter"></div>
+        </div>
+
+        <!--
+        <button
+          class="flex flex-row justify-center items-center w-full h-12 my-3 rounded-md bg-transparent text-white border-solid border border-white">
+          <img src="./../../../assets/icons/google_icon.svg" width="30" alt="inscription avec Google" />
+          <span class="p-5">S'inscrire avec Google</span>
+        </button>
+        -->
+
+        <ul *ngIf="!isInputsValid" class="w-full text-red-500 font-bold bg-red-100 px-5 py-2 text-lg my-3">
+          Attention:
+          <li *ngIf="!isInputsValid">{{ inputErrorMsg }}</li>
+        </ul>
+        <button type="submit" id="signup-button"
+          class="w-full h-12 px-6 py-2.5 bg-slate-50 text-[#339682] font-medium text-lg leading-tight font-bold mt-7 shadow-md hover:bg-slate-200 hover:shadow-lg focus:bg-slate-200 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-200 active:shadow-lg transition duration-150 ease-in-out">
+          Je m'inscris
+        </button>
+        <div class="w-full flex justify-start my-4">
+          <span class="text-slate-300 mr-3">J'ai déjà un compte ?</span>
+          <span class="text-dark underline cursor-pointer" [routerLink]="['/auth', {}]">
+            Je me connecte
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="right_part" class="relative flex flex-col justify-center items-center w-1/2 hidden lg:flex h-4/5">
+    <img id="spectre" class="absolute inset-0 w-full h-full" src="./../../../assets/logos/spectre_bg.svg"
+      alt="Spectre" />
+    <img class="w-1/5" src="./../../../assets/logos/logo_ganeyi.png" alt="Logo Ganeyi" />
+  </div>
+</main>
+
+<div *ngIf="showMsg === true" id="modal-msg">
+  <div *ngIf="subscribed !== true && !isActivated" class="modal-info-inline p-7">
+    <h2 class="text-2xl my-4">Erreur !</h2>
+    <p class="text-xl">
+      {{ this.errorMsg }}
+    </p>
+    <a [routerLink]="['/auth', {}]">
+      <button (click)="switchModal()"
+        class="h-12 px-6 py-2.5 bg-[#339886] text-white font-medium text-lg leading-tight font-bold mt-7 shadow-md hover:bg-[#1d4e4b] hover:shadow-lg focus:bg-[#1d4e4b] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#1d4e4b] active:shadow-lg transition duration-150 ease-in-out">
+        Fermer
+      </button>
+    </a>
+  </div>
+
+  <div *ngIf="subscribed === true" class="modal-info-inline p-7">
+    <h2 class="text-2xl my-4">Bravo 🎉🎉🎉 !</h2>
+    <p class="text-xl">
+      Vos informations ont bien été enregistrées.<br />
+      Un email vous a été envoyé pour activation.
+    </p>
+    <a [routerLink]="['/auth', {}]">
+      <button
+        class="h-12 px-6 py-2.5 bg-[#339886] text-white font-medium text-lg leading-tight font-bold mt-7 shadow-md hover:bg-[#1d4e4b] hover:shadow-lg focus:bg-[#1d4e4b] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#1d4e4b] active:shadow-lg transition duration-150 ease-in-out">
+        Se connecter
+      </button>
+    </a>
+  </div>
+
+  <div *ngIf="isActivated === true" class="modal-info-inline p-7">
+    <h2 class="text-2xl my-4">Bravo !</h2>
+    <p class="text-xl">Votre compte a été activé avec succès 🎉🎉🎉</p>
+    <a [routerLink]="['/auth', {}]">
+      <button
+        class="h-12 px-6 py-2.5 bg-[#339886] text-white font-medium text-lg leading-tight font-bold mt-7 shadow-md hover:bg-[#1d4e4b] hover:shadow-lg focus:bg-[#1d4e4b] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#1d4e4b] active:shadow-lg transition duration-150 ease-in-out">
+        Se connecter
+      </button>
+    </a>
+  </div>
+</div>

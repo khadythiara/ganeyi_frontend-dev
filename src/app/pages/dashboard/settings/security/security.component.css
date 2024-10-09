@@ -1,0 +1,43 @@
+
+#modal-info {
+    position: fixed;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    left: 0;
+    background-color: #002922d5;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation-name: modal-infoAppears;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+#modal-info>.modal-info-inline {
+    background-color: #e8fffb;
+    max-width: 500px;
+    transform: translateY(-50%);
+    animation-name: modal-infoInlineAppears;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+
+}
+
+@keyframes modal-infoAppears {
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-infoInlineAppears {
+    100% {
+        transform: translateY(0%);
+    }
+}

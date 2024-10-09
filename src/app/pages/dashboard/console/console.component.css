@@ -1,0 +1,70 @@
+.bg-blue {
+  background-color: #e2e8f0;
+}
+
+input:checked + label {
+  border-color: #339682;
+  border-width: 3px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.imgShower {
+  width: 350px;
+  height: 200px;
+  margin: auto;
+}
+
+#modal-info,
+#modal-msg {
+  position: fixed;
+  z-index: 1000;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 0;
+  background-color: #002922d5;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation-name: modal-infoAppears;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+#modal-info > .modal-info-inline,
+#modal-msg > .modal-info-inline {
+  background-color: #e8fffb;
+  max-width: 500px;
+  transform: translateY(-50%);
+  animation-name: modal-infoInlineAppears;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes modal-infoAppears {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-infoInlineAppears {
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes spectreRotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

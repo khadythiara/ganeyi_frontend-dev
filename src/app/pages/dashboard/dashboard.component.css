@@ -1,0 +1,23 @@
+body {
+    background-color: #f8f8f8;
+}
+
+#navigation>a.active, #navigation>a:hover {
+    background-color: rgba(38, 50, 56, 0.33);
+    color: #ffffff !important;
+}
+
+#navigation>a.active {
+    border-left: 5px solid #263238;
+}
+
+.sidebar-container {
+    background-color: #339682;
+}
+
+#deconnexion {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 1000;
+}

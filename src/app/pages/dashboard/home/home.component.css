@@ -1,0 +1,31 @@
+select {
+    border-radius: 6px;
+    border: solid 1.1px #94a3b8;
+    padding-right: 10px;
+    color: #38aa93;
+    transition: 0.4s ease-out;
+    width: 180px;
+    padding-bottom: 5px;
+    padding-top: 15px;
+}
+
+.service>div, .diagram-container>div {
+    box-shadow: 0 2.9px 87.8px 0 rgba(58, 86, 78, 0.07);
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+header>svg {
+    border-radius: 100%;
+    background-color: #339682;
+}
+
+.service>div>main>span:first-child {
+    color: #339682;
+}
+
+.diagram {
+    height: 315px;  
+    border-radius: 12px;
+    background-image: linear-gradient(69deg, #38aa93 2%, #217060 80%);
+}

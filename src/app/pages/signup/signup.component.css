@@ -1,0 +1,157 @@
+input:focus {
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.63);
+}
+
+main {
+    background-image: linear-gradient(to bottom, #1d4e4b 0%, #339886 100%);
+    max-width: 100%;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, 0.52);
+}
+
+input:focus {
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.63);
+}
+
+#right_part {
+    overflow: hidden;
+    height: calc(80vh);
+}
+
+#spectre {
+    animation-name: spectreRotation;
+    animation-duration: 30s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spectreRotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#modal-info, #modal-msg {
+    position: fixed;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    left: 0;
+    background-color: #002922d5;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation-name: modal-infoAppears;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+#modal-info>.modal-info-inline, #modal-msg>.modal-info-inline {
+    background-color: #e8fffb;
+    max-width: 500px;
+    transform: translateY(-50%);
+    animation-name: modal-infoInlineAppears;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+
+}
+
+@keyframes modal-infoAppears {
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-infoInlineAppears {
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes spectreRotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* Password Strength */
+.container .strenghtMeter {
+  position: absolute;
+  /*bottom: 0;*/
+  /*left: 0;*/
+  width: 35%;
+  height: 3px;
+  background: #222;
+}
+
+.container .strenghtMeter::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  transition: 0.5s;
+   background: #f00;
+}
+
+.container.weak .strenghtMeter::before {
+  width: 10%;
+  background: rgb(240, 0, 0);
+  /*filter: drop-shadow(0 0 5px rgb(240, 0, 0))
+  drop-shadow(0 0 10px rgb(240, 0, 0)) drop-shadow(0 0 20px rgb(240, 0, 0));*/
+}
+
+.container.medium .strenghtMeter::before {
+  width: 66.66%;
+  background: #ffac11;
+  /*filter: drop-shadow(0 0 5px #ffac11) drop-shadow(0 0 10px #ffac11)
+  drop-shadow(0 0 20px #ffac11);*/
+}
+
+.container.strong .strenghtMeter::before {
+  width: 100%;
+  background: rgb(16, 255, 16);
+  /*filter: drop-shadow(0 0 5px rgb(16, 255, 16))
+  drop-shadow(0 0 10px rgb(16, 255, 16))
+  drop-shadow(0 0 20px rgb(16, 255, 16));*/
+}
+
+.container .strenghtMeter::after {
+  position: absolute;
+  top: -30px;
+  left: 30px;
+  color: #fff;
+  transition: 0.5s;
+}
+
+.container.weak .strenghtMeter::after {
+  content: "Votre mot de passe est faible";
+  color: #f00;
+  /*filter: drop-shadow(0 0 5px #f00);*/
+}
+
+.container.medium .strenghtMeter::after {
+  content: "Votre mot de passe est moyen";
+  color: #ffa500;
+  /*filter: drop-shadow(0 0 5px #ffa500);*/
+}
+
+.container.strong .strenghtMeter::after {
+  content: "Votre mot de passe est fort";
+  color: #0f0;
+  /*filter: drop-shadow(0 0 5px #0f0);*/
+}

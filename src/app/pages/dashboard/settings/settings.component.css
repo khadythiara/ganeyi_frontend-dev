@@ -1,0 +1,8 @@
+a.active {
+  background: #339682;
+  color: white !important;
+}
+
+a.active > svg {
+  color: white !important;
+}

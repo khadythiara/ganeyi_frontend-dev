@@ -1,0 +1,36 @@
+main {
+    background-image: linear-gradient(to bottom, #1d4e4b 0%, #339886 100%);
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, 0.52);
+}
+
+input:focus {
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.63);
+}
+
+#right_part {
+    overflow: hidden;
+}
+
+#spectre {
+    animation-name: spectreRotation;
+    animation-duration: 30s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.invalid-feedback {
+    color: #f12a2a;
+}
+
+@keyframes spectreRotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

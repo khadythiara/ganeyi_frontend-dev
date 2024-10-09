@@ -1,0 +1,110 @@
+<!-- <p-toast position="top-right"></p-toast> -->
+<ngx-loading [show]="isLoading"></ngx-loading>
+<div class="py-6">
+  <div class="px-4 pt-6 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+      <div class="sm:flex-auto">
+        <h1 class="text-2xl font-semibold text-gray-900">Produits</h1>
+      </div>
+    </div>
+    <div class="w-full my-4">
+      <form class="w-full flex justify-between">
+        <select class="capitalize font-bold rounded border-slate-400 text-gray-400" name="" id="" #selectedValue
+          (change)="this.filterProducts(selectedValue.value)">
+          <option value="0" selected>Tous</option>
+          <option value="1">Abonnés</option>
+        </select>
+        <input type="text" class="capitalize font-bold rounded border-slate-400 text-gray-400" placeholder="Rechercher"
+          #inputProduct (keyup)="searchProduct(inputProduct.value)" />
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="products && !this.loadingComponent" class="w-full flex flex-wrap justify-center px-4 sm:px-6 md:px-8 mt-6">
+    <div *ngFor="let produit of products" class="w-full lg:w-1/2 2xl:w-1/3 sm:p-4 lg:p-6 xl:p-10 produit font-bold">
+      <div class="w-full p-2 bg-white rounded shadow">
+        <div class="w-full p-4 flex flex-col">
+          <header class="product-header w-full flex flex-col items-center pb-4">
+            <img [src]="
+                produit.logo
+                  ? this.resourceUrl + produit.logo
+                  : './../../../../../assets/logos/logo.jpg'
+              " alt="" class="w-16 h-16" />
+            <h3 class="uppercase mb-4">
+              {{ produit.name }}
+            </h3>
+            <div class="flex flex-col items-baseline">
+              <div class="font-medium flex align-center items-center" *ngFor="let desc of produit.description">
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10.53 2.555a8.336 8.336 0 0 0-8.333 8.333c0 4.6 3.733 8.333 8.333 8.333s8.333-3.733 8.333-8.333-3.733-8.333-8.333-8.333zm0 15a6.676 6.676 0 0 1-6.667-6.667 6.676 6.676 0 0 1 6.667-6.667 6.676 6.676 0 0 1 6.667 6.667 6.676 6.676 0 0 1-6.667 6.667zm3.825-10.35-5.492 5.491-2.158-2.15-1.175 1.175 3.333 3.334 6.667-6.667-1.175-1.183z"
+                    fill="#339682" />
+                </svg>
+                <p class="m-2">{{desc}} </p>
+              </div>
+            </div>
+          </header>
+          <main class="w-full flex flex-col justify-center items-center">
+            <!-- <span class="text-2xl text-gray-500"> Prix XOF </span> -->
+            <button (click)="subscribeToProduct(produit)" [disabled]="
+                isAlreadySubscribe(produit.id) || !this.isAccountActive
+              "
+              class="flex disabled:text-gray-500 disabled:bg-gray-200 disabled:hover:bg-gray-200 disabled:hover:border-0 disabled:hover:text-gray-500 bg-primary text-white px-5 py-2 m-2 hover:bg-white hover:text-primary hover:border hover:border-primary">
+              {{
+              isAlreadySubscribe(produit.id) ? "Déjà Souscrit" : "Souscrire"
+              }}
+            </button>
+            <span *ngIf="!this.isAccountActive" class="text-center text-red-500 font-bold bg-red-100 px-5 py-2 my-3">
+              Il faut un compte actif pour s'abonner ou utiliser un produit.
+            </span>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="myModal" *ngIf="oneProduct" class="modal"
+    [ngClass]="{ modal: openModal === true, 'modal-non': openModal === false }">
+    <div class="modal-content">
+      <div class="close" (click)="closeModal()">
+        <span class="flex justify-center">x</span>
+      </div>
+
+      <div class="w-full flex flex-wrap p-1">
+        <p class="mr-1 font-bold text-primary">Nom :</p>
+        <p>{{ oneProduct.name }}</p>
+      </div>
+      <div class="w-full flex flex-wrap p-1">
+        <p class="mr-1 font-bold text-primary">Description :</p>
+        <p>{{ oneProduct.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="this.loadingComponent" class="w-full flex justify-center flex-wrap px-4 sm:px-6 md:px-8 mt-6">
+    <div role="status">
+      <svg class="inline mr-2 w-16 h-16 text-gray-200 animate-spin dark:text-primary fill-primary" viewBox="0 0 100 101"
+        fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+          fill="currentColor" />
+        <path
+          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+          fill="currentFill" />
+      </svg>
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div *ngIf="showAlert === true" id="modal-msg">
+    <div class="modal-info-inline p-7">
+      <p class="text-xl">
+        {{ subscriptionMessage }}
+      </p>
+      <a (click)="reloadPage()">
+        <button
+          class="h-12 px-6 py-2.5 bg-[#339886] text-white font-medium text-lg leading-tight font-bold mt-7 shadow-md hover:bg-[#1d4e4b] hover:shadow-lg focus:bg-[#1d4e4b] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#1d4e4b] active:shadow-lg transition duration-150 ease-in-out">
+          Fermer
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

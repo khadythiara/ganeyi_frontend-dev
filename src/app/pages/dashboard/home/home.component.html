@@ -1,0 +1,223 @@
+<div class="py-6">
+  <div class="w-full flex px-4 sm:px-6 md:px-8">
+    <div class="basic-2/3 grow">
+    <form>
+      <select class="ml-1 font-bold focus:ring-4 focus:ring-green-300 items-center" [(ngModel)]="selectedProductId"
+        name="selectedProduct" (change)="this.filterProduct()">
+        <option value="" selected>Tous les produits</option>
+        <option [value]="product.id" *ngFor="let product of products">
+          {{ product.name }}
+        </option>
+      </select>
+      <select class="mx-5 font-bold focus:ring-4 focus:ring-green-300 items-center" [(ngModel)]="requestStatus"
+        name="selectedProduct" (change)="this.filterByStatus()">
+        <option value="" selected disabled>Filtre statut</option>
+        <option value="SUCCESS" >SUCC&Egrave;S</option>
+        <option value="FAILED">ECHOU&Eacute;</option>
+      </select>
+
+      <button type="button"
+        class="focus:outline-none text-[#38aa93] bg-white focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm mr-2 p-2.5 inline-flex items-center"
+        (click)="refresh()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+          <path fill-rule="evenodd"
+            d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z"
+            clip-rule="evenodd" />
+        </svg>
+        Actualiser
+      </button>
+    </form>
+    </div>
+    <div class="basci-1/3">
+      <div class="w-full p-4 flex flex-col bg-white">
+        <header class="w-full flex items-center pb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" class="w-6 h-6 mr-4 p-1">
+            <path
+              d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+          </svg>
+          <h3 class="uppercase">Total</h3>
+        </header>
+        <main class="w-full flex justify-between space-x-4">
+          <div>
+            <span class="text-3xl">{{ data['total'].data[0].totalSuccess }}</span>
+            <span class="text-xl text-green-500">/Succ&egrave;s</span>
+          </div>
+          <div>
+            <span class="text-3xl">{{ data['total'].data[0].totalFailed }}</span>
+            <span class="text-xl text-red-500">/Echou&eacute;(s)</span>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full flex flex-wrap px-4 sm:px-6 md:px-8 mt-6">
+    <div class="w-full lg:w-1/2 xl:w-1/3 p-2 service font-bold">
+      <div class="w-full p-4 flex flex-col">
+        <header class="w-full flex items-center pb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" class="w-6 h-6 mr-4 p-1">
+            <path
+              d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+          </svg>
+          <h3 class="uppercase">Requêtes</h3>
+        </header>
+        <main class="w-full flex justify-between items-end">
+          <span class="text-3xl">{{ totalRequestForCurrentHour }}</span>
+          <span class="text-xl text-gray-500">/ Heure</span>
+        </main>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/2 xl:w-1/3 p-2 service font-bold">
+      <div class="w-full p-4 flex flex-col">
+        <header class="w-full flex items-center pb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" class="w-6 h-6 mr-4 p-1">
+            <path
+              d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+          </svg>
+          <h3 class="uppercase">Requêtes</h3>
+        </header>
+        <main class="w-full flex justify-between items-end">
+          <span class="text-3xl">{{ totalRequestForCurrentDay }}</span>
+          <span class="text-xl text-gray-500">/ Jour</span>
+        </main>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/2 xl:w-1/3 p-2 service font-bold">
+      <div class="w-full p-4 flex flex-col">
+        <header class="w-full flex items-center pb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" class="w-6 h-6 mr-4 p-1">
+            <path
+              d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+          </svg>
+          <h3 class="uppercase">Requêtes</h3>
+        </header>
+        <main class="w-full flex justify-between items-end">
+          <span class="text-3xl">{{ totalRequestForCurrentMonth }}</span>
+          <span class="text-xl text-gray-500">/ Mois</span>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="this.isAccountActive && !this.loadingComponent" class="w-full">
+    <div class="w-full flex flex-wrap px-4 sm:px-6 md:px-8 mt-6 diagram-container">
+      <div class="w-full flex flex-row p-4">
+        <div class="basis-1/2">
+          <p class="text-gray-600">Nombre de requêtes effectuées / heure</p>
+          <div class="flex flex-row space-x-1" p-1>
+            <div>
+              <p-calendar width-45 [placeholder]="'Choisir un jour'" [selectionMode]="'single'"
+                [(ngModel)]="this.dateFilter.hourly.value" (onSelect)="dateFilterSelected('hourly')"
+                [dateFormat]="'dd-mm-yy'" [styleClass]="'bg-green'">
+              </p-calendar>
+            </div>
+            <div>
+              <button
+                class="focus:outline-none text-white uppercase bg-[#38aa93] focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm mr-2 p-2.5 inline-flex items-center"
+                (click)="this.filterSuggestion('hourly', 'previous')">
+                Hier
+              </button>
+              <button
+                class="focus:outline-none text-white uppercase bg-[#38aa93] focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm mr-2 p-2.5 inline-flex items-center"
+                (click)="this.filterSuggestion('hourly', 'current')">
+                Aujourd'hui
+              </button>
+            </div>
+          </div>
+          <app-hour-kpi [loading]="dateFilter.hourly.loading" [data]="data"></app-hour-kpi>
+        </div>
+
+        <div class="basis-1/2">
+          <p class="text-gray-600">Nombre de requêtes effectuées / jour</p>
+          <div class="flex flex-row space-x-1" p-1>
+            <div>
+              <p-calendar [placeholder]="'Choisir un mois'" view="month" dateFormat="mm/yy" [yearNavigator]="true"
+                [(ngModel)]="this.dateFilter.daily.value" (onSelect)="dateFilterSelected('daily')"
+                [yearRange]="this.dateFilter.daily.yearRange" [readonlyInput]="true">
+              </p-calendar>
+            </div>
+            <div>
+              <button
+                class="focus:outline-none text-white uppercase bg-[#38aa93] focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm mr-2 p-2.5 inline-flex items-center"
+                (click)="this.filterSuggestion('daily', 'previous')">
+                Mois pr&eacute;c&eacute;dent
+              </button>
+              <button
+                class="focus:outline-none text-white uppercase bg-[#38aa93] focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm mr-2 p-2.5 inline-flex items-center"
+                (click)="this.filterSuggestion('daily', 'current')">
+                Ce mois
+              </button>
+            </div>
+          </div>
+          <app-day-kpi [loading]="dateFilter.daily.loading" [data]="data"></app-day-kpi>
+        </div>
+      </div>
+
+      <div class="w-full flex flex-col p-4">
+        <p class="text-gray-600">Nombre de requêtes effectuées / mois</p>
+        <div class="flex flex-row space-x-2">
+          <div>
+            <p-calendar width-20 view="month" [readonlyInput]="true" [dateFormat]="'mm/yy'"
+              placeholder="Choisir un intervalle de date" [(ngModel)]="this.dateFilter.monthly.value"
+              (onSelect)="dateFilterSelected('monthly')"></p-calendar>
+          </div>
+          <div>
+            <button
+              class="focus:outline-none text-white uppercase bg-[#38aa93] focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm mr-2 p-2.5 inline-flex items-center"
+              (click)="this.filterSuggestion('monthly', 'previous')">
+              Ann&eacute;e pr&eacute;c&eacute;dente
+            </button>
+            <button
+              class="focus:outline-none text-white uppercase bg-[#38aa93] focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm mr-2 p-2.5 inline-flex items-center"
+              (click)="this.filterSuggestion('monthly', 'current')">
+              Cette ann&eacute;e
+            </button>
+          </div>
+        </div>
+        <app-month-kpi [loading]="dateFilter.monthly.loading" [data]="data">
+        </app-month-kpi>
+      </div>
+
+      <div class="w-full flex flex-row p-4">
+        <div class="basis-1/2">
+          <p class="text-gray-600">Dur&eacute;es requ&ecirc;tes / heure</p>
+          <app-boxplot-kpi [data]="data" [loading]="dateFilter.hourly.loading" [chartXLegend]="'Heures'"
+            [kpiType]="'durationHour'"></app-boxplot-kpi>
+        </div>
+        <div class="basis-1/2">
+          <p class="text-gray-600">Dur&eacute;es requ&ecirc;tes / jour</p>
+          <app-boxplot-kpi [data]="data" [loading]="dateFilter.daily.loading" [chartXLegend]="'Jours'"
+            [kpiType]="'durationDay'"></app-boxplot-kpi>
+        </div>
+      </div>
+      <div class="w-full flex flex-col p-4">
+        <p class="text-gray-600">Dur&eacute;es requ&ecirc;tes / mois</p>
+        <app-boxplot-kpi [data]="data" [loading]="dateFilter.monthly.loading" [chartXLegend]="'Mois'"
+          [kpiType]="'durationMonth'"></app-boxplot-kpi>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!this.isAccountActive && !this.loadingComponent" class="w-full flex flex-wrap px-4 sm:px-6 md:px-8 mt-6 diagram-container">
+    <div class="w-full flex flex-row p-4">
+      <span class="text-red-500 font-bold bg-red-100 px-5 py-2 my-3">
+        Vous ne pouvez pas accéder à cette partie car votre compte n'est pas activé.
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="this.loadingComponent" class="w-full flex justify-center flex-wrap px-4 sm:px-6 md:px-8 mt-6">
+    <div role="status">
+      <svg class="inline mr-2 w-16 h-16 text-gray-200 animate-spin dark:text-primary fill-primary"
+        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+          fill="currentColor" />
+        <path
+          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+          fill="currentFill" />
+      </svg>
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,358 @@
+<div id="dashboard-container">
+  <!-- Static Sidebar For mobile -->
+  <div class="relative z-40 md:hidden" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
+    <div class="fixed inset-0 flex z-40">
+      <div class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-200">
+        <div class="absolute top-0 right-0 -mr-12 pt-2">
+          <button type="button"
+            class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <span class="sr-only">Close sidebar</span>
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="2" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex-shrink-0 flex items-center px-4">
+          <img class="h-8 w-auto" src="assets/logos/logo_baamtu_web.png" alt="Workflow" />
+        </div>
+        <div class="mt-5 flex-1 h-0 overflow-y-auto">
+          <nav class="px-2 space-y-1">
+            <a href="#"
+              class="bg-primary text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+              <svg class="mr-4 flex-shrink-0 h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              Dashboard
+            </a>
+
+            <a href="#"
+              class="text-primary hover:bg-gray-300 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+              <svg class="mr-4 flex-shrink-0 h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              Team
+            </a>
+
+            <a href="#"
+              class="text-primary hover:bg-gray-300 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+              <svg class="mr-4 flex-shrink-0 h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+              </svg>
+              Projects
+            </a>
+
+            <a href="#"
+              class="text-primary hover:bg-gray-300 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+              <svg class="mr-4 flex-shrink-0 h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Calendar
+            </a>
+
+            <a href="#"
+              class="text-primary hover:bg-gray-300 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+              <svg class="mr-4 flex-shrink-0 h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+              Documents
+            </a>
+
+            <a href="#"
+              class="text-primary hover:bg-gray-300 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+              <svg class="mr-4 flex-shrink-0 h-6 w-6 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              Reports
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="flex-shrink-0 w-14" aria-hidden="true">
+      </div>
+    </div>
+  </div>
+
+  <!-- Static sidebar for desktop -->
+  <div class="sidebar-container hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+    <div class="flex flex-col flex-grow pt-5 overflow-y-auto">
+      <div class="flex items-center flex-shrink-0 px-4">
+        <img class="h-9 pr-3" src="assets/logos/LOGO_GANEYI_blanc_img.png" alt="Ganeyi Logo" />
+        <img class="h-9" src="assets/logos/LOGO_GANEYI_blanc_text.png" alt="Ganeyi" />
+      </div>
+      <div class="mt-5 flex-1 flex flex-col">
+        <nav id="navigation" class="flex-1 px-2 pb-4 space-y-1">
+          <a [routerLinkActive]="['active']" routerLink="/dashboard/home"
+            class="text-white group flex items-center px-2 py-2 text-sm rounded-md">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+              class="mr-3 flex-shrink-0 h-6 w-6 text-secondary">
+              <path
+                d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"
+                fill="#fff" />
+            </svg>
+            Accueil
+          </a>
+
+          <a *ngIf="!isAgent" [routerLinkActive]="['active']" routerLink="/dashboard/products"
+            class="text-white group flex items-center px-2 py-2 text-sm rounded-md cursor-pointer">
+            <svg class="mr-3 flex-shrink-0 h-6 w-6 text-secondary" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"
+                fill="#fff" />
+            </svg>
+            Produits
+          </a>
+
+          <a [routerLinkActive]="['active']" routerLink="/dashboard/console"
+            class="text-white group flex items-center px-2 py-2 text-sm rounded-md cursor-pointer">
+            <svg class="mr-3 flex-shrink-0 h-6 w-6 text-secondary" version="1.1" id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"
+              viewBox="0 0 27.269 27.269" style="enable-background: new 0 0 27.269 27.269" xml:space="preserve"
+              fill="#fff">
+              <g>
+                <path d="M25.322,1.947H1.949C0.869,1.947,0,2.818,0,3.898v19.477c0,1.074,0.869,1.947,1.949,1.947h23.373
+		c1.07,0,1.947-0.873,1.947-1.947V3.898C27.27,2.818,26.393,1.947,25.322,1.947z M9.312,3.41c0.537,0,0.973,0.436,0.973,0.975
+		c0,0.537-0.436,0.973-0.973,0.973c-0.539,0-0.975-0.436-0.975-0.973C8.338,3.845,8.773,3.41,9.312,3.41z M6.33,3.41
+		c0.537,0,0.975,0.436,0.975,0.975c0,0.537-0.438,0.973-0.975,0.973c-0.539,0-0.975-0.436-0.975-0.973
+		C5.355,3.845,5.791,3.41,6.33,3.41z M3.406,3.41c0.541,0,0.975,0.436,0.975,0.975c0,0.537-0.434,0.973-0.975,0.973
+		c-0.535,0-0.971-0.436-0.971-0.973C2.436,3.845,2.871,3.41,3.406,3.41z M25.322,23.375H1.949V6.838h23.373
+		C25.322,6.838,25.322,23.375,25.322,23.375z" />
+                <path d="M14.797,15.566L5.844,20.16v-1.332l7.602-3.781v-0.039l-7.602-3.782V9.894l8.953,4.572V15.566z" />
+                <path d="M21.422,14.334v1.232h-4.764v-1.232H21.422z" />
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+              </g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+            </svg>
+            Console
+          </a>
+
+          <a [routerLinkActive]="['active']" routerLink="/dashboard/requests"
+            class="text-white group flex items-center px-2 py-2 text-sm rounded-md cursor-pointer">
+            <svg class="mr-3 flex-shrink-0 h-6 w-6 text-secondary" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z"
+                fill="#fff" />
+            </svg>
+            Requêtes
+          </a>
+
+          <a *ngIf="!isAgent" [routerLinkActive]="['active']" routerLink="/dashboard/agent"
+            class="text-white group flex items-center px-2 py-2 text-sm rounded-md cursor-pointer">
+            <svg class="mr-3 flex-shrink-0 h-6 w-6 text-secondary" version="1.1" id="Layer_1"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24"
+              height="24" viewBox="0 0 459.863 459.863" style="enable-background: new 0 0 459.863 459.863"
+              xml:space="preserve">
+              <g>
+                <g>
+                  <g>
+                    <path d="M395.988,193.977c-18.629,24.992-45.641,41.956-77.406,44.25c26.626,31.04,43.84,70.378,47.152,113.55
+				c1.243,16.197,0.369,24.083-0.932,30.599c16.064-2.497,30.815-6.128,43.488-10.794c42.626-15.694,51.573-38.891,51.573-55.586
+				C459.863,265.521,434.565,220.849,395.988,193.977z" fill="#fff" />
+                    <path d="M276.72,199.407c10.642,5.952,22.36,9.093,34.525,9.093c45.83,0,81.115-44.3,81.115-96.677
+				c0-52.382-35.29-96.677-81.115-96.677c-18.734,0-36.411,7.436-50.724,21.145c20.03,25.65,31.446,59.072,31.446,94.667
+				C291.967,154.544,286.961,178.037,276.72,199.407z" fill="#fff" />
+                    <path d="M259.999,226.279c-24.558,31.058-57.739,46.482-91.839,46.482c-36.232,0-68.69-17.206-91.839-46.482
+				C30.403,256.333,0,308.217,0,367.076c0,18.127,9.926,43.389,57.213,60.8c29.496,10.861,68.898,16.841,110.947,16.841
+				c42.049,0,81.451-5.98,110.947-16.841c47.287-17.411,57.213-42.673,57.213-60.8C336.32,308.217,305.918,256.333,259.999,226.279z
+				" fill="#fff" />
+                    <path d="M168.16,242.763c53.003,0,93.806-51.234,93.806-111.804c0-60.571-40.808-111.804-93.806-111.804
+				c-52.995,0-93.806,51.223-93.806,111.804C74.354,191.541,115.169,242.763,168.16,242.763z" fill="#fff" />
+                  </g>
+                </g>
+              </g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+            </svg>
+            Utilisateurs
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="md:pl-64 flex flex-col flex-1">
+    <div *ngIf="user?.firstName == '' || user?.lastName == ''" class="bg-red-200 p-3 text-red-500 text-center">
+      Mettez à jour les informations de votre profil <a class="text-red-700 font-bold underline"
+        routerLink="/dashboard/profile">ici</a>
+    </div>
+    <div class="sticky px-4 top-0 z-10 flex-shrink-0 flex h-16 pt-3">
+      <button type="button"
+        class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden">
+        <span class="sr-only">Open sidebar</span>
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+          stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
+        </svg>
+      </button>
+      <div class="flex-1 px-4 flex justify-between">
+        <div class="flex-1 flex">
+          <form class="w-full flex md:ml-0" action="#" method="GET">
+            <label for="search-field" class="sr-only">Search</label>
+            <div
+              class="flex items-center pt-2 justify-start align-middle relative w-full text-gray-400 focus-within:text-gray-600">
+              <h1 class="text-gray-800">
+                <i>Bonjour,</i>
+                <span class="font-bold">
+                  {{ user?.firstName }} {{ user?.lastName | uppercase }}
+                </span>
+
+                <span *ngIf="this.loadingComponent" class="w-4 h-4 ml-2">
+                  <span role="status">
+                    <svg class="inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-primary fill-primary"
+                      viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="currentColor" />
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentFill" />
+                    </svg>
+                    <span class="sr-only">Loading...</span>
+                  </span>
+                </span>
+              </h1>
+              <img *ngIf="user?.isActive && !this.loadingComponent" src="../../../assets/icons/shutdown.png" alt=""
+                class="w-4 h-4 ml-2" />
+              <img *ngIf="!this.user.isActive && !this.loadingComponent" src="../../../assets/icons/power-on.png" alt=""
+                class="w-4 h-4 ml-2" />
+              <div class="flex ml-5 items-center" *ngIf="!user?.isActive">
+                <p class="text-red-500 font-bold bg-red-100 px-5 py-2">
+                  Votre compte n'est pas encore activé
+                </p>
+              </div>
+              <div class="flex ml-5 items-center" *ngIf="!isAgent && !hasSubscription">
+                <p routerLink="/dashboard/products/list"
+                  class="cursor-pointer underline font-italic text-yellow-500 font-bold bg-yellow-100 px-5 py-2">
+                  Souscrivez à un produit Ganeyi
+                  pour commencer l'aventure !
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="ml-4 flex items-center md:ml-6">
+          <div class="ml-3 relative">
+            <div>
+              <button (click)="toggleOpenUserMenu()" type="button"
+                class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                <span class="sr-only">Open user menu</span>
+                <img class="h-8 w-8 rounded-full" src="../../../assets/icons/user-circle.svg" alt="" />
+              </button>
+            </div>
+            <div *ngIf="openUserMenu"
+              class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+              role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+              <a routerLink="/dashboard/profile" (click)="toggleOpenUserMenu()"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-400 cursor-pointer" role="menuitem"
+                tabindex="-1" id="user-menu-item-0">Mon Profil</a>
+
+              <a routerLink="/dashboard/settings/account" (click)="toggleOpenUserMenu()"
+                class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-slate-400" role="menuitem"
+                tabindex="-1" id="user-menu-item-1">Paramètres</a>
+
+              <a (click)="logout()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-slate-400"
+                role="menuitem" tabindex="-1" id="user-menu-item-2">Se Déconnecter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="md:pl-64">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<div title="Déconnexion" (click)="logout()" id="deconnexion">
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    viewBox="0 0 55 55" style="enable-background: new 0 0 55 55; cursor: pointer" xml:space="preserve" width="50"
+    height="50">
+    <g>
+      <path fill="#339682" d="M53.924,23.618c-0.051-0.123-0.125-0.234-0.217-0.327L41.708,11.293c-0.391-0.391-1.023-0.391-1.414,0
+      s-0.391,1.023,0,1.414L50.587,23H29.001c-0.553,0-1,0.447-1,1s0.447,1,1,1h21.586L40.294,35.293c-0.391,0.391-0.391,1.023,0,1.414
+      C40.489,36.902,40.745,37,41.001,37s0.512-0.098,0.707-0.293l11.999-11.999c0.093-0.092,0.166-0.203,0.217-0.326
+      C54.025,24.138,54.025,23.862,53.924,23.618z" />
+      <path fill="#339682" d="M36.001,29c-0.553,0-1,0.447-1,1v16h-10V8c0-0.436-0.282-0.821-0.697-0.953L8.442,2h26.559v16c0,0.553,0.447,1,1,1
+      s1-0.447,1-1V1c0-0.553-0.447-1-1-1h-34c-0.032,0-0.06,0.015-0.091,0.018C1.854,0.023,1.805,0.036,1.752,0.05
+      C1.658,0.075,1.574,0.109,1.493,0.158C1.467,0.174,1.436,0.174,1.411,0.192C1.38,0.215,1.356,0.244,1.328,0.269
+      c-0.017,0.016-0.035,0.03-0.051,0.047C1.201,0.398,1.139,0.489,1.093,0.589c-0.009,0.02-0.014,0.04-0.022,0.06
+      C1.029,0.761,1.001,0.878,1.001,1v46c0,0.125,0.029,0.243,0.072,0.355c0.014,0.037,0.035,0.068,0.053,0.103
+      c0.037,0.071,0.079,0.136,0.132,0.196c0.029,0.032,0.058,0.061,0.09,0.09c0.058,0.051,0.123,0.093,0.193,0.13
+      c0.037,0.02,0.071,0.041,0.111,0.056c0.017,0.006,0.03,0.018,0.047,0.024l22,7C23.797,54.984,23.899,55,24.001,55
+      c0.21,0,0.417-0.066,0.59-0.192c0.258-0.188,0.41-0.488,0.41-0.808v-6h11c0.553,0,1-0.447,1-1V30
+      C37.001,29.447,36.553,29,36.001,29z" />
+    </g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+    <g></g>
+  </svg>
+</div>
