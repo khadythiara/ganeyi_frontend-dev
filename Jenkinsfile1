@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Cloner le dépôt Git
-                git url: 'https://github.com/mon_projet_angular.git', branch: 'main'
+                git url: 'https://github.com/khadythiara/ganeyi_frontend-dev.git', branch: 'main'
             }
         }
 
@@ -22,7 +22,7 @@ pipeline {
                 // Utiliser Node.js et installer les dépendances Angular
                 script {
                     // Sélectionner la version de Node.js
-                    def nodeHome = tool name: "NodeJS-${NODE_VERSION}", type: 'NodeJSInstallation'
+                    def nodeHome = tool name: "NodeJS-${14.x}", type: 'NodeJSInstallation'
                     env.PATH = "${nodeHome}/bin:${env.PATH}"
 
                     // Installer les dépendances du projet Angular
