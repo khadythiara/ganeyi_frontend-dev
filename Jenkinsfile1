@@ -5,7 +5,7 @@ pipeline {
         // Définir la version de Node.js à utiliser
         NODE_VERSION = '16.x'  // Adapter selon la version de Node.js souhaitée
         // Configuration de SonarQube
-        SONAR_SCANNER_HOME = tool 'SonarQube Scanner'  // Nom de l'outil SonarQube configuré dans Jenkins
+        SONAR_SCANNER_HOME = tool 'sonarqube'  // Nom de l'outil SonarQube configuré dans Jenkins
         SONARQUBE_URL = 'http://localhost:9000'  // URL de votre instance SonarQube
     }
 
