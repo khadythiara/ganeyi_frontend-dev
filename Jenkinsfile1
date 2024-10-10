@@ -25,12 +25,14 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    sh """
-                    sonar-scanner -Dsonar.projectKey=ganeyi_frontend-dev \
-                        -Dsonar.sources=src \
-                        -Dsonar.host.url=http://192.168.230.128:9000/ \
-                        -Dsonar.login=${SONAR_TOKEN}
-                    """
+                  sh """
+                      /opt/sonar-scanner/bin/sonar-scanner \
+                      -Dsonar.projectKey=ganeyi_frontend-dev \
+                      -Dsonar.sources=src \
+                      -Dsonar.host.url=http://192.168.230.128:9000/ \
+                      -Dsonar.login=${SONAR_TOKEN}
+                  """
+
                 }
             }
         } // <-- Closing the 'SonarQube Analysis' stage
