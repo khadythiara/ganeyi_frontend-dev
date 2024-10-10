@@ -33,8 +33,7 @@ pipeline {
                      sonar-scanner \
                     -Dsonar.projectKey=ganeyi_frontend-dev \
                     -Dsonar.sources=src \
-                    -Dsonar.host.url=$env.SONARQUBE_URL \
-                    -Dsonar.login=$env.SONAR_TOKEN
+                    -Dsonar.host.url=$env.SONARQUBE_URL
                     """
                 }
             }
