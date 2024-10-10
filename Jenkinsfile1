@@ -38,8 +38,8 @@ pipeline {
                 // Analyser le projet avec SonarQube
                 withSonarQubeEnv('sonarqube') {
                     sh """
-                    ${SONAR_SCANNER_HOME}/bin/sonar-scanner --version
-                    //${SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                    //${SONAR_SCANNER_HOME}/bin/sonar-scanner --version
+                    //${SONAR_SCANNER_HOME}/bin/sonar \
                     -Dsonar.projectKey=ganeyi_frontend-dev \
                     -Dsonar.sources=src \
                     -Dsonar.host.url=${SONARQUBE_URL} \
