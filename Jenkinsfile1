@@ -29,7 +29,7 @@ pipeline {
                 // Analyser le projet avec SonarQube
                 withSonarQubeEnv('sonarqube') {
                     sh """
-                    //sonar \
+                     sonar-scanner \
                     -Dsonar.projectKey=ganeyi_frontend-dev \
                     -Dsonar.sources=src \
                     -Dsonar.host.url=${SONARQUBE_URL} \
