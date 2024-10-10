@@ -4,10 +4,6 @@ pipeline {
     environment {
         // Optional: Use Node Version Manager (nvm) to enforce specific version
         // NODE_VERSION = '14.x'  // Adapt according to your needs
-
-        // SonarQube configuration
-        SONARQUBE_URL = 'http://192.168.230.128:9000/'  // URL of your SonarQube instance
-        SONAR_TOKEN = credentials('sonarqube') // Credentials ID for SonarQube token
     }
 
     stages {
@@ -26,17 +22,21 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
+            environment {
+                SONAR_TOKEN = credentials('sonarqube') // replace with your credentials ID
+            }
             steps {
-                // Analyze the project with SonarQube
-                withSonarQubeEnv('sonarqube') {
+                script {
                     sh """
-                     sonar-scanner \
-                    -Dsonar.projectKey=ganeyi_frontend-dev \
-                    -Dsonar.sources=src
+                    sonar-scanner -Dsonar.projectKey=ganeyi_frontend-dev \
+                        -Dsonar.sources=src \
+                        -Dsonar.host.url=http://192.168.230.128:9000/ \
+                        -Dsonar.login=${SONAR_TOKEN}
                     """
                 }
             }
         }
+
 
         stage('Build Angular Project') {
             steps {
