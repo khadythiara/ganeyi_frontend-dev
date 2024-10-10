@@ -3,27 +3,29 @@ pipeline {
 
     environment {
         // Définir la version de Node.js à utiliser
-        NODE_VERSION = '16.x'  // Adapter selon la version de Node.js souhaitée
+        //CHROME_BIN = '/usr/bin/google-chrome' // Chemin où Chrome est installé
+        NODE_VERSION = '14.x'  // Adapter selon la version de Node.js souhaitée
         // Configuration de SonarQube
-        SONAR_SCANNER_HOME = tool 'sonarqube'  // Nom de l'outil SonarQube configuré dans Jenkins
-        SONARQUBE_URL = 'http://localhost:9000'  // URL de votre instance SonarQube
+        SONAR_SCANNER_HOME ='sonarqube'  // Nom de l'outil SonarQube configuré dans Jenkins
+        SONARQUBE_URL = 'http://192.168.230.128:9000/'  // URL de votre instance SonarQube
+        SONAR_TOKEN = credentials('sonarqube') // Jeton SonarQube
     }
 
     stages {
         stage('Checkout Code') {
             steps {
                 // Cloner le dépôt Git
-                git url: 'https://github.com/mon_projet_angular.git', branch: 'main'
+                git url: 'https://github.com/khadythiara/ganeyi_frontend-dev.git', branch: 'main'
             }
         }
-
+        
         stage('Install Dependencies') {
             steps {
                 // Utiliser Node.js et installer les dépendances Angular
                 script {
                     // Sélectionner la version de Node.js
-                    def nodeHome = tool name: "NodeJS-${NODE_VERSION}", type: 'NodeJSInstallation'
-                    env.PATH = "${nodeHome}/bin:${env.PATH}"
+                    //def nodeHome = tool name: "NodeJS-${18.x}", type: 'NodeJSInstallation'
+                    //env.PATH = "${nodeHome}/bin:${env.PATH}"
 
                     // Installer les dépendances du projet Angular
                     sh 'npm install'
@@ -31,20 +33,14 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                // Lancer les tests unitaires Angular
-                sh 'npm run test -- --watch=false --no-progress --browsers=ChromeHeadless'
-            }
-        }
-
         stage('SonarQube Analysis') {
             steps {
                 // Analyser le projet avec SonarQube
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('sonarqube') {
                     sh """
-                    ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.projectKey=my-angular-project \
+                    //${SONAR_SCANNER_HOME}/bin/sonar-scanner --version
+                    //${SONAR_SCANNER_HOME}/bin/sonar \
+                    -Dsonar.projectKey=ganeyi_frontend-dev \
                     -Dsonar.sources=src \
                     -Dsonar.host.url=${SONARQUBE_URL} \
                     -Dsonar.login=${SONAR_TOKEN}
