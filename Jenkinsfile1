@@ -4,6 +4,7 @@ pipeline {
     environment {
         // Optional: Use Node Version Manager (nvm) to enforce specific version
         // NODE_VERSION = '14.x'  // Adapt according to your needs
+        SONAR_TOKEN = credentials('sonarqube') // replace with your credentials ID
     }
 
     stages {
@@ -22,9 +23,6 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            environment {
-                SONAR_TOKEN = credentials('sonarqube') // replace with your credentials ID
-            }
             steps {
                 script {
                     sh """
@@ -35,7 +33,7 @@ pipeline {
                     """
                 }
             }
-
+        } // <-- Closing the 'SonarQube Analysis' stage
 
         stage('Build Angular Project') {
             steps {
