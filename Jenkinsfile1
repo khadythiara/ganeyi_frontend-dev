@@ -2,31 +2,32 @@ pipeline {
     agent any
 
     environment {
-        // Définir la version de Node.js à utiliser
-        NODE_VERSION = '14.x'  // Adapter selon la version de Node.js souhaitée
-        // Configuration de SonarQube
-        SONARQUBE_URL = 'http://192.168.230.128:9000/'  // URL de votre instance SonarQube
-        SONAR_TOKEN = credentials('sonarqube') // Jeton SonarQube
+        // Optional: Use Node Version Manager (nvm) to enforce specific version
+        // NODE_VERSION = '14.x'  // Adapt according to your needs
+
+        // SonarQube configuration
+        SONARQUBE_URL = 'http://192.168.230.128:9000/'  // URL of your SonarQube instance
+        SONAR_TOKEN = credentials('sonarqube') // Credentials ID for SonarQube token
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                // Cloner le dépôt Git
+                // Clone the Git repository
                 git url: 'https://github.com/khadythiara/ganeyi_frontend-dev.git', branch: 'main'
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                // Installer les dépendances Angular
+                // Install Angular dependencies
                 sh 'npm install'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                // Analyser le projet avec SonarQube
+                // Analyze the project with SonarQube
                 withSonarQubeEnv('sonarqube') {
                     sh """
                      sonar-scanner \
@@ -41,14 +42,15 @@ pipeline {
 
         stage('Build Angular Project') {
             steps {
-                // Compiler le projet Angular pour la production
-                sh 'npm run build -- --prod'
+                // Optional: Use a separate script in package.json for production build
+                // sh 'npm run build:prod'  // Example using a separate script
+                sh 'npm run build -- --prod'  // Current approach
             }
         }
 
         stage('Quality Gate') {
             steps {
-                // Attendre que SonarQube termine l'analyse et renvoie le résultat du Quality Gate
+                // Wait for SonarQube to finish analysis and Quality Gate results
                 timeout(time: 1, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
