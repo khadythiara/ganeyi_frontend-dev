@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         // Définir la version de Node.js à utiliser
+        CHROME_BIN = '/usr/bin/google-chrome' // Chemin où Chrome est installé
         NODE_VERSION = '14.x'  // Adapter selon la version de Node.js souhaitée
         // Configuration de SonarQube
         SONAR_SCANNER_HOME ='sonarqube'  // Nom de l'outil SonarQube configuré dans Jenkins
