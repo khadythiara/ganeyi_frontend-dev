@@ -32,8 +32,7 @@ pipeline {
                     sh """
                      sonar-scanner \
                     -Dsonar.projectKey=ganeyi_frontend-dev \
-                    -Dsonar.sources=src \
-                    -Dsonar.host.url=$env.SONARQUBE_URL
+                    -Dsonar.sources=src
                     """
                 }
             }
