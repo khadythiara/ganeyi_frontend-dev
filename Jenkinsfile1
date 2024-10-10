@@ -35,15 +35,13 @@ pipeline {
 
                 }
             }
-        } // <-- Closing the 'SonarQube Analysis' stage
-
+        } 
         stage('Build Angular Project') {
             steps {
-                // Optional: Use a separate script in package.json for production build
-                // sh 'npm run build:prod'  // Example using a separate script
-                sh 'npm run build -- --prod'  // Current approach
+                sh 'npm run build -- --configuration production'  // Nouvelle commande pour les versions récentes d'Angular
             }
         }
+
 
         stage('Quality Gate') {
             steps {
