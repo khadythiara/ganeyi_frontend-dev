@@ -2,22 +2,20 @@ pipeline {
     agent any
 
     environment {
-        // Optional: Use Node Version Manager (nvm) to enforce specific version
-        // NODE_VERSION = '14.x'  // Adapt according to your needs
-        SONAR_TOKEN = credentials('sonarqube') // replace with your credentials ID
+        SONAR_TOKEN = credentials('sonarqube') // Remplacez par l'ID de vos credentials SonarQube dans Jenkins
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                // Clone the Git repository
+                // Cloner le dépôt Git
                 git url: 'https://github.com/khadythiara/ganeyi_frontend-dev.git', branch: 'main'
             }
         }
-
+        
         stage('Install Dependencies') {
             steps {
-                // Install Angular dependencies
+                // Installer les dépendances du projet Angular
                 sh 'npm install'
             }
         }
@@ -25,25 +23,26 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    sh """
-                        /opt/sonar-scanner/bin/sonar-scanner \
-                        -Dsonar.projectKey=ganeyi_frontend-dev \
-                        -Dsonar.sources=src \
-                        -Dsonar.host.url=http://192.168.230.128:9000/ \
-                        -Dsonar.login=${SONAR_TOKEN}
-                    """
+                    withSonarQubeEnv('sonarqube') {  // Remplacez 'SonarQubeServer' par le nom de votre serveur SonarQube dans Jenkins
+                        sh """
+                            /opt/sonar-scanner/bin/sonar-scanner \
+                            -Dsonar.projectKey=ganeyi_frontend-dev \
+                            -Dsonar.sources=src \
+                            -Dsonar.host.url=http://192.168.230.128:9000/ \
+                            -Dsonar.login=${SONAR_TOKEN}
+                        """
+                    }
                 }
             }
         }
-
+        
         stage('Quality Gate Check') {
             steps {
-                // Wait for the quality gate result from SonarQube
                 timeout(time: 1, unit: 'MINUTES') {
                     script {
                         def qualityGate = waitForQualityGate()
                         if (qualityGate.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
+                            error "Quality Gate failed: ${qualityGate.status}"
                         }
                     }
                 }
@@ -52,7 +51,7 @@ pipeline {
 
         stage('Build Angular Project') {
             steps {
-                sh 'npm run build -- --configuration production'  // Nouvelle commande pour les versions récentes d'Angular
+                sh 'npm run build -- --configuration production'
             }
         }
     }
