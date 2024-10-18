@@ -2,28 +2,29 @@ pipeline {
     agent any
 
     environment {
-
-       imagename = "khadydiagne/ganeyi_frontend-dev"
+        imagename = "khadydiagne/ganeyi_frontend-dev"
         registryCredential = 'simple-java-project'
         dockerImage = ''
+        WEBHOOK_URL = 'https://chat.googleapis.com/v1/spaces/AAAAF-fYuRc/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=YquNatic_vtgLs662cM1OUCjqcwb_gZ7EIxBcWLRbB0' // URL du webhook
         SONAR_TOKEN = credentials('sonarqube') // Remplacez par l'ID de vos credentials SonarQube dans Jenkins
     }
 
     stages {
-            stage('Send Webhook Notification - Build Started') {
+        stage('Send Webhook Notification - Build Started') {
             steps {
                 script {
                     def response = httpRequest(
                         httpMode: 'POST',
                         url: WEBHOOK_URL,
                         contentType: 'APPLICATION_JSON',
-                        requestBody: '{"text": " 🚀Build jenkins_sonarqube ganeyi_frontend-dev: demarrer par khady diagne!"}',
+                        requestBody: '{"text": " 🚀Build jenkins_sonarqube ganeyi_frontend-dev: démarré par khady diagne!"}',
                         validResponseCodes: '100:499'
                     )
                     echo "Response for start notification: ${response}"
                 }
             }
         }
+
         stage('Checkout Code') {
             steps {
                 // Cloner le dépôt Git
@@ -69,11 +70,12 @@ pipeline {
 
         stage('Build Angular Project') {
             steps {
-                sh 'npm run build -- --configuration production'
-                dockerImage = docker.build(imagename, ".")
+                script {
+                    sh 'npm run build -- --configuration production'
+                    dockerImage = docker.build(imagename, ".")
+                }
             }
         }
-    }
 
         stage('Push Image') {
             steps {
@@ -85,28 +87,30 @@ pipeline {
                 }
             }
         }
+    }
 
     post {
         success {
-             script {
+            script {
                 def response = httpRequest(
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
-                    requestBody: '{"text":"✅ Build jenkins_sonarqube status: termine avec succes!"}',
+                    requestBody: '{"text":"✅ Build jenkins_sonarqube status: terminé avec succès!"}',
                     validResponseCodes: '100:499'
                 )
                 echo "Response for success notification: ${response}"
             }
             echo 'Pipeline completed successfully!'
         }
-  failure {
-     script {
-              def response = httpRequest(
+
+        failure {
+            script {
+                def response = httpRequest(
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
-                    requestBody: '{"text":" ❌ Build jenkins_sonarqube status: build echoue."}',
+                    requestBody: '{"text":"❌ Build jenkins_sonarqube status: build échoué."}',
                     validResponseCodes: '100:499'
                 )
                 echo "Response for failure notification: ${response}"
