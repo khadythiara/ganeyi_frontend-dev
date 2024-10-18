@@ -95,7 +95,6 @@ pipeline {
 
       }
     }
-  }
     post {
         success {
             script {
@@ -125,4 +124,5 @@ pipeline {
             echo 'Pipeline failed!'
         }
     }
+}
 
