@@ -103,7 +103,7 @@ pipeline {
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
-                    requestBody: '{"text":"✅ Build jenkins_sonarqube status: terminé avec succès!"}',
+                    requestBody: '{"text":"✅ Build ganeyi_frontend-dev: terminé avec succes!"}',
                     validResponseCodes: '100:499'
                 )
                 echo "Response for success notification: ${response}"
@@ -117,7 +117,7 @@ pipeline {
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
-                    requestBody: '{"text":"❌ Build jenkins_sonarqube status: build échoué."}',
+                    requestBody: '{"text":"❌ Build ganeyi_frontend-dev: build échoué."}',
                     validResponseCodes: '100:499'
                 )
                 echo "Response for failure notification: ${response}"
