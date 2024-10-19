@@ -41,14 +41,16 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('sonarqube') {
-                        sh """
+                        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONARTOKEN')]) {
+                            sh """
                             /opt/sonar-scanner/bin/sonar-scanner \
                             -Dsonar.projectKey=ganeyi_frontend-dev \
                             -Dsonar.sources=src \
                             -Dsonar.host.url=http://192.168.230.128:9000/ \
-                            //-Dsonar.token=sonarqube
-                            -Dsonar.token=$SONARTOKEN
-                        """
+                            -Dsonar.token=${SONARTOKEN}
+                            """
+                        }
+
                     }
                 }
             }
