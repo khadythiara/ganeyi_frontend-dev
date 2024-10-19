@@ -68,8 +68,10 @@ pipeline {
 
         stage('Build Angular Project') {
             steps {
-                sh 'npm run build -- --configuration production'
-                dockerImage = docker.build(imagename, ".")
+                script {
+                    sh 'npm run build -- --configuration production'
+                    dockerImage = docker.build(imagename, ".")  // Le bloc docker.build doit être dans un script block
+                }
             }
         }
 
