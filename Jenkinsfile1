@@ -5,21 +5,34 @@ pipeline {
         imagename = "khadydiagne/ganeyi_frontend-dev"
         registryCredential = 'simple-java-project'
         dockerImage = ''
-        WEBHOOK_URL = 'https://chat.googleapis.com/v1/spaces/AAAAF-fYuRc/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=YquNatic_vtgLs662cM1OUCjqcwb_gZ7EIxBcWLRbB0' // URL du webhook
+        WEBHOOK_URL = 'https://chat.googleapis.com/v1/spaces/AAAAF-fYuRc/messages?key=...'
         SONAR_TOKEN = credentials('sonarqube') // Remplacez par l'ID de vos credentials SonarQube dans Jenkins
     }
 
     stages {
+        stage('Send Webhook Notification - Build Started') {
+            steps {
+                script {
+                    def response = httpRequest(
+                        httpMode: 'POST',
+                        url: WEBHOOK_URL,
+                        contentType: 'APPLICATION_JSON',
+                        requestBody: '{"text": " 🚀 Build jenkins_sonarqube ganeyi_frontend-dev: démarré par khady diagne!"}',
+                        validResponseCodes: '100:499'
+                    )
+                    echo "Response for start notification: ${response}"
+                }
+            }
+        }
+
         stage('Checkout Code') {
             steps {
-                // Cloner le dépôt Git
                 git url: 'https://github.com/khadythiara/ganeyi_frontend-dev.git', branch: 'main'
             }
         }
-        
+
         stage('Install Dependencies') {
             steps {
-                // Installer les dépendances du projet Angular
                 sh 'npm install'
             }
         }
@@ -27,7 +40,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('sonarqube') {  // Remplacez 'SonarQubeServer' par le nom de votre serveur SonarQube dans Jenkins
+                    withSonarQubeEnv('sonarqube') {
                         sh """
                             /opt/sonar-scanner/bin/sonar-scanner \
                             -Dsonar.projectKey=ganeyi_frontend-dev \
@@ -40,12 +53,23 @@ pipeline {
             }
         }
 
+        stage('Quality Gate Check') {
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {  // Augmenter le timeout à 10 minutes
+                    script {
+                        def qualityGate = waitForQualityGate()
+                        if (qualityGate.status != 'OK') {
+                            error "Quality Gate failed: ${qualityGate.status}"
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Build Angular Project') {
             steps {
-                script {
-                    sh 'npm run build -- --configuration production'
-                    dockerImage = docker.build(imagename, ".")
-                }
+                sh 'npm run build -- --configuration production'
+                dockerImage = docker.build(imagename, ".")
             }
         }
 
@@ -59,22 +83,24 @@ pipeline {
                 }
             }
         }
- stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi -f $imagename:$BUILD_NUMBER"
-         sh "docker rmi -f $imagename:latest"
-
-      }
     }
- }
+
     post {
         success {
             script {
+                def qualityGate = waitForQualityGate()  // Récupérer le résultat de SonarQube
+                def sonarReport = "✅ Quality Gate Status: ${qualityGate.status}\n" +
+                                  "Bugs: ${qualityGate.bugs}\n" +
+                                  "Vulnerabilities: ${qualityGate.vulnerabilities}\n" +
+                                  "Code Smells: ${qualityGate.codeSmells}\n"
+
                 def response = httpRequest(
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
-                    requestBody: '{"text":"✅ Build ganeyi_frontend-dev: terminé avec succes!"}',
+                    requestBody: """{
+                        "text": "✅ Build jenkins_sonarqube terminé avec succès!\\n${sonarReport}"
+                    }""",
                     validResponseCodes: '100:499'
                 )
                 echo "Response for success notification: ${response}"
@@ -88,7 +114,7 @@ pipeline {
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
-                    requestBody: '{"text":"❌ Build ganeyi_frontend-dev: build échoué."}',
+                    requestBody: '{"text":"❌ Build jenkins_sonarqube échoué."}',
                     validResponseCodes: '100:499'
                 )
                 echo "Response for failure notification: ${response}"
@@ -97,4 +123,3 @@ pipeline {
         }
     }
 }
-
