@@ -6,7 +6,7 @@ pipeline {
         registryCredential = 'simple-java-project'
         dockerImage = ''
         WEBHOOK_URL = 'https://chat.googleapis.com/v1/spaces/AAAAF-fYuRc/messages?key=...'
-       // SONARTOKEN = credentials('sonarqube') // Remplacez par l'ID de vos credentials SonarQube dans Jenkins
+        SONARTOKEN = credentials('sonarqube') // Remplacez par l'ID de vos credentials SonarQube dans Jenkins
     }
 
     stages {
@@ -46,8 +46,8 @@ pipeline {
                             -Dsonar.projectKey=ganeyi_frontend-dev \
                             -Dsonar.sources=src \
                             -Dsonar.host.url=http://192.168.230.128:9000/ \
-                            -Dsonar.token=sonarqube
-                            //-Dsonar.token=${SONARTOKEN}
+                            //-Dsonar.token=sonarqube
+                            -Dsonar.token=$SONARTOKEN
                         """
                     }
                 }
