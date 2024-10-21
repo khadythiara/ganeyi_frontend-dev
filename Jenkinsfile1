@@ -124,6 +124,11 @@ pipeline {
 
         failure {
             script {
+               def qualityGate = waitForQualityGate()  // Récupérer le résultat de SonarQube
+                def sonarReport = "✅ Quality Gate Status: ${qualityGate.status}\n" +
+                                  "Bugs: ${qualityGate.bugs}\n" +
+                                  "Vulnerabilities: ${qualityGate.vulnerabilities}\n" +
+                                  "Code Smells: ${qualityGate.codeSmells}\n"
                 def response = httpRequest(
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
