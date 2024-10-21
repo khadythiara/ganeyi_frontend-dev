@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         imagename = "khadydiagne/ganeyi_frontend-dev"
-        registryCredential = 'simple-java-project'
+        registryCredential = 'docker'
         dockerImage = ''
         WEBHOOK_URL = 'https://chat.googleapis.com/v1/spaces/AAAAF-fYuRc/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=YquNatic_vtgLs662cM1OUCjqcwb_gZ7EIxBcWLRbB0'
         SONARTOKEN = credentials('sonarqube') // Remplacez par l'ID de vos credentials SonarQube dans Jenkins
@@ -58,11 +58,13 @@ pipeline {
 
         stage('Quality Gate Check') {
             steps {
-                timeout(time: 25, unit: 'MINUTES') {  // Augmenter le timeout à 10 minutes
+                timeout(time:5, unit: 'MINUTES') {  // Augmenter le timeout à 10 minutes
                     script {
                         def qualityGate = waitForQualityGate()
                         if (qualityGate.status != 'OK') {
                             error "Quality Gate failed: ${qualityGate.status}"
+                          echo "Quality Gate status: ${qualityGate.status}"
+
                         }
                     }
                 }
