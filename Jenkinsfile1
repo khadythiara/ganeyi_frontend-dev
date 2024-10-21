@@ -58,7 +58,7 @@ pipeline {
 
       stage('Quality Gate Check') {
           steps {
-              timeout(time: 5, unit: 'MINUTES') {  // Augmenter le timeout pour les grandes analyses
+              timeout(time: 10, unit: 'MINUTES') {  // Augmenter le timeout pour les grandes analyses
                   script {
                       def qualityGate = waitForQualityGate()  // Attente de la réponse du Quality Gate
                       if (qualityGate.status != 'OK') {
