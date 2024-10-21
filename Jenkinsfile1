@@ -113,7 +113,7 @@ pipeline {
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
                     requestBody: """{
-                        "text": "✅ Build jenkins_sonarqube terminé avec succès!\\n${sonarReport}"
+                        "text": "✅ Build jenkins_sonarqube terminé avec succes!\\n${sonarReport}"
                     }""",
                     validResponseCodes: '100:499'
                 )
@@ -131,7 +131,7 @@ pipeline {
                     requestBody: '{"text":"❌ Build jenkins_sonarqube échoué."}',
                     validResponseCodes: '100:499'
                 )
-                echo "Response for failure notification: ${response}"
+                echo "Response for failure notification: ${response}!\\n${sonarReport}"
             }
             echo 'Pipeline failed!'
         }
