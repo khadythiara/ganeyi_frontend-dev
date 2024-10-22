@@ -32,7 +32,7 @@ pipeline {
                             /opt/sonar-scanner/bin/sonar-scanner \
                             -Dsonar.projectKey=ganeyi_frontend-dev \
                             -Dsonar.sources=src \
-                            -Dsonar.host.url=http://192.168.230.128:9000/ \
+                            -Dsonar.host.url=http://0.0.0.0:9000/ \
                             -Dsonar.token=${SONARTOKEN}
                             """
                         }
