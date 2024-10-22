@@ -32,7 +32,7 @@ pipeline {
                             /opt/sonar-scanner/bin/sonar-scanner \
                             -Dsonar.projectKey=ganeyi_frontend-dev \
                             -Dsonar.sources=src \
-                            -Dsonar.host.url=http://0.0.0.0:9000/ \
+                            -Dsonar.host.url=http://192.168.230.128:9000/ \
                             -Dsonar.token=${SONARTOKEN}
                             """
                         }
@@ -42,6 +42,26 @@ pipeline {
             }
         }
 
+      stage('Quality Gate Check') {
+          steps {
+              timeout(time: 10, unit: 'MINUTES') {  // Augmenter le timeout pour les grandes analyses
+                  script {
+                      def qualityGate = waitForQualityGate()  // Attente de la réponse du Quality Gate
+                      if (qualityGate.status != 'OK') {
+                          error """
+                          Quality Gate failed:
+                          Status: ${qualityGate.status}
+                          Bugs: ${qualityGate.bugs}
+                          Vulnerabilities: ${qualityGate.vulnerabilities}
+                          Code Smells: ${qualityGate.codeSmells}
+                          """
+                      } else {
+                          echo "✅ Quality Gate passed successfully!"
+                      }
+                  }
+              }
+          }
+      }
 
 
         stage('Build Angular Project') {
