@@ -10,7 +10,20 @@ pipeline {
     }
 
     stages {
-
+    stage('Send Webhook Notification - Build Started') {
+            steps {
+                script {
+                    def response = httpRequest(
+                        httpMode: 'POST',
+                        url: WEBHOOK_URL,
+                        contentType: 'APPLICATION_JSON',
+                        requestBody: '{"text": "🚀 Build jenkins_sonarqube status: démarré par Khady Diagne!"}',
+                        validResponseCodes: '100:499'
+                    )
+                    echo "Response for start notification: ${response}"
+                }
+            }
+        }
         stage('Checkout Code') {
             steps {
                 git url: 'https://github.com/khadythiara/ganeyi_frontend-dev.git', branch: 'main'
