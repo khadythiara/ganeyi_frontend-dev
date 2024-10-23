@@ -36,30 +36,28 @@ pipeline {
                             -Dsonar.token=${SONARTOKEN}
                             """
                         }
-
                     }
                 }
             }
         }
 
-      stage('Quality Gate Check') {
-          steps {
-              timeout(time: 15, unit: 'MINUTES') {  // Augmenter le timeout pour les grandes analyses
-                  script {
-                      def qualityGate = waitForQualityGate()  // Attente de la réponse du Quality Gate
-                      if (qualityGate.status != 'OK') {
-                          error """
-                          Quality Gate failed:
-                          Status: ${qualityGate.status}
-                          """
-                      } else {
-                          echo "✅ Quality Gate passed successfully!"
-                      }
-                  }
-              }
-          }
-      }
-
+        stage('Quality Gate Check') {
+            steps {
+                timeout(time: 15, unit: 'MINUTES') {  // Augmenter le timeout pour les grandes analyses
+                    script {
+                        def qualityGate = waitForQualityGate()  // Attente de la réponse du Quality Gate
+                        if (qualityGate.status != 'OK') {
+                            error """
+                            Quality Gate failed:
+                            Status: ${qualityGate.status}
+                            """
+                        } else {
+                            echo "✅ Quality Gate passed successfully!"
+                        }
+                    }
+                }
+            }
+        }
 
         stage('Build Angular Project') {
             steps {
@@ -86,17 +84,19 @@ pipeline {
         success {
             script {
                 def qualityGate = waitForQualityGate()  // Récupérer le résultat de SonarQube
-                def sonarReport = "✅ Quality Gate Status: ${qualityGate.status}\n" +
-                                  "Bugs: ${qualityGate.bugs}\n" +
-                                  "Vulnerabilities: ${qualityGate.vulnerabilities}\n" +
-                                  "Code Smells: ${qualityGate.codeSmells}\n"
+                def sonarReport = "✅ Quality Gate Status: ${qualityGate.status}\n"
+                
+                // Vérifiez si le qualityGate a des informations supplémentaires avant d'y accéder
+                sonarReport += "Bugs: ${qualityGate.bugs ?: 0}\n"
+                sonarReport += "Vulnerabilities: ${qualityGate.vulnerabilities ?: 0}\n"
+                sonarReport += "Code Smells: ${qualityGate.codeSmells ?: 0}\n"
 
                 def response = httpRequest(
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
                     requestBody: """{
-                        "text": "✅ Build jenkins_sonarqube terminé avec succes!\\n${sonarReport}"
+                        "text": "✅ Build jenkins_sonarqube terminé avec succès!\\n${sonarReport}"
                     }""",
                     validResponseCodes: '100:499'
                 )
@@ -107,11 +107,11 @@ pipeline {
 
         failure {
             script {
-               def qualityGate = waitForQualityGate()  // Récupérer le résultat de SonarQube
+                def qualityGate = waitForQualityGate()  // Récupérer le résultat de SonarQube
                 def sonarReport = "✅ Quality Gate Status: ${qualityGate.status}\n" +
-                                  "Bugs: ${qualityGate.bugs}\n" +
-                                  "Vulnerabilities: ${qualityGate.vulnerabilities}\n" +
-                                  "Code Smells: ${qualityGate.codeSmells}\n"
+                                  "Bugs: 0\n" + // Traitement par défaut en cas d'erreur
+                                  "Vulnerabilities: 0\n" + // Traitement par défaut en cas d'erreur
+                                  "Code Smells: 0\n"; // Traitement par défaut en cas d'erreur
                 def response = httpRequest(
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
