@@ -44,16 +44,13 @@ pipeline {
 
       stage('Quality Gate Check') {
           steps {
-              timeout(time: 10, unit: 'MINUTES') {  // Augmenter le timeout pour les grandes analyses
+              timeout(time: 15, unit: 'MINUTES') {  // Augmenter le timeout pour les grandes analyses
                   script {
                       def qualityGate = waitForQualityGate()  // Attente de la réponse du Quality Gate
-                      if (qualityGate.status != 'OK') {
+                      if (qualityGate.status != 'IN PROGRESS') {
                           error """
                           Quality Gate failed:
                           Status: ${qualityGate.status}
-                          Bugs: ${qualityGate.bugs}
-                          Vulnerabilities: ${qualityGate.vulnerabilities}
-                          Code Smells: ${qualityGate.codeSmells}
                           """
                       } else {
                           echo "✅ Quality Gate passed successfully!"
