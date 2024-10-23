@@ -47,7 +47,7 @@ pipeline {
               timeout(time: 15, unit: 'MINUTES') {  // Augmenter le timeout pour les grandes analyses
                   script {
                       def qualityGate = waitForQualityGate()  // Attente de la réponse du Quality Gate
-                      if (qualityGate.status != 'IN PROGRESS') {
+                      if (qualityGate.status != 'OK') {
                           error """
                           Quality Gate failed:
                           Status: ${qualityGate.status}
