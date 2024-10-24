@@ -93,20 +93,18 @@ pipeline {
         }
     }
 
-    post {
+      post {
         success {
             script {
                 def response = httpRequest(
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
-                    requestBody: """{
-                        "text": "✅ Build jenkins_sonarqube termine avec succes"
-                    }""",
+                    requestBody: '{"text":"✅ Build jenkins_sonarqube status: terminé avec succès!"}',
                     validResponseCodes: '100:499'
                 )
+                echo "Response for success notification: ${response}"
             }
-            echo 'Pipeline completed successfully!'
         }
 
         failure {
@@ -115,11 +113,11 @@ pipeline {
                     httpMode: 'POST',
                     url: WEBHOOK_URL,
                     contentType: 'APPLICATION_JSON',
-                    requestBody: '{"text":"❌ Build jenkins_sonarqube echoue!"}',
+                    requestBody: '{"text":"❌ Build jenkins_sonarqube status: échoué."}',
                     validResponseCodes: '100:499'
                 )
+                echo "Response for failure notification: ${response}"
             }
-            echo 'Pipeline failed!'
         }
     }
 }
